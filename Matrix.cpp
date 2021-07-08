@@ -1,3 +1,4 @@
+
 #include "Matrix.h"
 #include <cmath>
 #include <cassert>
@@ -41,6 +42,17 @@ Matrix Matrix::scalarMult(float scalar){
     return output;
 }
 
+Matrix Matrix::elementMult(Matrix &target){
+    assert(rows == target.rows && cols == target.cols);
+    Matrix output(rows, cols);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j){
+            output.at(i, j) = at(i, j) * target.at(i, j);
+        }
+    }
+    return output;
+}
+
 Matrix Matrix::matAdd(Matrix &target){
     assert(rows == target.rows && cols == target.cols);
     Matrix output(rows, cols);
@@ -62,11 +74,11 @@ Matrix Matrix::scalarAdd(float scalar){
     return output;
 }
 
-Matrix Matrix::negative(){
+Matrix Matrix::negative(Matrix &target){
     Matrix output(rows, cols);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j){
-            output.at(i, j) = -at(i, j);
+            target.at(i, j) = -at(i, j);
         }
     }
     return output;
