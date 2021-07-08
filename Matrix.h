@@ -29,11 +29,11 @@ class Matrix {
         };
 
         Matrix matMult(Matrix &m2){
-            assert(rows == m2.cols);
-            Matrix output(m2.rows, cols);
+            assert(cols = m2.rows);
+            Matrix output(rows, m2.cols);
             for(int i = 0; i < rows; ++i){
                 for(int j = 0; j < m2.cols; ++j){
-                    for(int k = 0; k < m2.rows; ++k){
+                    for(int k = 0; k < cols; ++k){
                         output.at(i, j) += at(i, k) * m2.at(k, j);
                     }
                 }
@@ -93,10 +93,20 @@ class Matrix {
             return output;
         };
 
-        Matrix transpose(){
-            Matrix output(cols, rows);
+        Matrix square(){
+            Matrix output(rows, cols);
             for(int i = 0; i < rows; ++i){
                 for(int j = 0; j < cols; ++j){
+                    output.at(i, j) = at(i, j) * at(i, j);
+                }
+            }
+            return output;
+        };
+
+        Matrix transpose(){
+            Matrix output(cols, rows);
+            for(int i = 0; i < output.rows; ++i){
+                for(int j = 0; j < output.cols; ++j){
                     output.at(i, j) = at(j, i);
                 }
             }
@@ -112,4 +122,17 @@ class Matrix {
             }
             return output;
         };
+
+        void size(){
+            cout << rows << " " << cols << endl;
+        }
+
+        void print(){
+            for(int i = 0; i < rows; ++i){
+                for(int j = 0; j < cols; ++j){
+                    cout << at(i, j) << " ";
+                }
+            }
+            cout << endl;
+        }
 };
