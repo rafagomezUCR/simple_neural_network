@@ -1,8 +1,5 @@
 #pragma once
 
-#include <cmath>
-#include <cassert>
-#include <functional>
 #include <vector>
 
 using namespace std;
