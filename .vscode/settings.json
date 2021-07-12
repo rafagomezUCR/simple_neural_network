@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "vector": "c",
         "functional": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "cassert": "cpp"
     }
 }

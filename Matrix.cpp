@@ -5,27 +5,27 @@
 
 using namespace std;
 
-Matrix::Matrix(int rows, int cols){
-    rows = rows;
-    cols = cols;
-    matrix.resize(rows);
+Matrix::Matrix(){}
+
+Matrix::Matrix(int r, int c){
+    rows = r;
+    cols = c;
+    matrix.resize(rows * cols);
+}
+
+float &Matrix::at(int r, int c){
+    //r * cols gets you to the row wanted
+    //just add the column you want
+    return matrix[r * cols + c];
+}
+
+Matrix Matrix::matMult(Matrix &m2){
+    assert(cols = m2.rows);
+    Matrix output(rows, m2.cols);
     for(int i = 0; i < rows; ++i){
-        matrix[i].resize(cols, 0.0);
-    }
-}
-
-float &Matrix::at(int rows, int cols){
-    return matrix[rows][cols];
-}
-
-Matrix Matrix::matMult(Matrix &target){
-    assert(cols == target.rows);
-    Matrix output(rows, target.cols);
-    // CAN MESS UP HERE
-    for(int i = 0; i < target.rows; ++i){
-        for(int j = 0; j < target.cols; ++i){
-            for(int k = 0; k < cols; ++i){
-                output.at(i, j) += at(i, k) * target.at(k, j);
+        for(int j = 0; j < m2.cols; ++j){
+            for(int k = 0; k < cols; ++k){
+                output.at(i, j) += at(i, k) * m2.at(k, j);
             }
         }
     }
@@ -42,23 +42,23 @@ Matrix Matrix::scalarMult(float scalar){
     return output;
 }
 
-Matrix Matrix::elementMult(Matrix &target){
-    assert(rows == target.rows && cols == target.cols);
+Matrix Matrix::elementMult(Matrix &m2){
+    assert(rows == m2.rows && cols == m2.cols);
     Matrix output(rows, cols);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j){
-            output.at(i, j) = at(i, j) * target.at(i, j);
+            output.at(i, j) = at(i, j) * m2.at(i, j);
         }
     }
     return output;
 }
 
-Matrix Matrix::matAdd(Matrix &target){
-    assert(rows == target.rows && cols == target.cols);
+Matrix Matrix::matAdd(Matrix &m2){
+    assert(rows == m2.rows && cols == m2.cols);
     Matrix output(rows, cols);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j){
-            output.at(i, j) = at(i, j) + target.at(i, j);
+            output.at(i, j) = at(i, j) + m2.at(i, j);
         }
     }
     return output;
@@ -74,11 +74,11 @@ Matrix Matrix::scalarAdd(float scalar){
     return output;
 }
 
-Matrix Matrix::negative(Matrix &target){
+Matrix Matrix::negative(){
     Matrix output(rows, cols);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j){
-            target.at(i, j) = -at(i, j);
+            output.at(i, j) = at(i, j) * -1;
         }
     }
     return output;
@@ -86,19 +86,9 @@ Matrix Matrix::negative(Matrix &target){
 
 Matrix Matrix::transpose(){
     Matrix output(cols, rows);
-    for(int i = 0; i < rows; ++i){
-        for(int j = 0; j < cols; ++j){
-            output.at(j, i) = at(i, j);
-        }
-    }
-    return output;
-}
-
-Matrix Matrix::applyFunction(function<float(const float&)> func){
-    Matrix output(cols, rows);
-    for(int i = 0; i < rows; ++i){
-        for(int j = 0; j < cols; ++j){
-            output.at(j, i) = func(at(i, j));
+    for(int i = 0; i < output.rows; ++i){
+        for(int j = 0; j < output.cols; ++j){
+            output.at(i, j) = at(j, i);
         }
     }
     return output;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include "NeuralNetwork.h"
-#include "Matrix.h"
+#include "NeuralNetwork.cpp"
 
 using namespace std;
 
