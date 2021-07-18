@@ -2,8 +2,7 @@
 #include "Matrix.h"
 #include <cmath>
 #include <cassert>
-
-using namespace std;
+#include <iomanip>
 
 Matrix::Matrix(){}
 
@@ -64,11 +63,32 @@ Matrix Matrix::matAdd(Matrix &m2){
     return output;
 }
 
+Matrix Matrix::matSub(Matrix &m2){
+    assert(rows == m2.rows && cols == m2.cols);
+    Matrix output(rows, cols);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j){
+            output.at(i, j) = at(i, j) - m2.at(i, j);
+        }
+    }
+    return output;
+}
+
 Matrix Matrix::scalarAdd(float scalar){
     Matrix output(rows, cols);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j){
             output.at(i, j) = at(i, j) + scalar;
+        }
+    }
+    return output;
+}
+
+Matrix Matrix::square(){
+    Matrix output(rows, cols);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j){
+            output.at(i, j) = at(i, j) * at(i, j);
         }
     }
     return output;
@@ -92,4 +112,23 @@ Matrix Matrix::transpose(){
         }
     }
     return output;
+}
+
+float Matrix::sumMatrix(Matrix &m){
+    float output;
+    for(int i = 0; i < m.rows; ++i){
+        for(int j = 0; j < m.cols; ++j){
+            output += m.at(i, j);
+        }
+    }
+    return output;
+}
+
+void Matrix::print(){
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j){
+            std::cout << std::fixed << std::setprecision(4) << at(i, j) << " ";
+        }
+    }
+    std::cout << std::endl;
 }
