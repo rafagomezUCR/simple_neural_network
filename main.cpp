@@ -25,7 +25,7 @@ int main(){
         {0.0, 1.0},
     };
     std::vector<std::vector<float>> targetOutputs = {
-        {1.0},
+        {0.0},
         {1.0},
         {0.0},
         {0.0},
