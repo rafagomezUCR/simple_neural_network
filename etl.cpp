@@ -54,6 +54,7 @@ void ETL::read_csv(std::string filename){
             }
         }
     }
+    file.close();
 }
 
 std::vector<std::vector<float>> ETL::getData(){
